@@ -1,4 +1,7 @@
-package alegerd.trains.entities;
+package alegerd.trains.entities.route;
+
+import alegerd.trains.entities.stationsOnRoutes.StationsOnRoutesEntity;
+import alegerd.trains.entities.train.TrainEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,7 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Route")
 public class RouteEntity implements Serializable{
-    private Integer id;
+    private Long id;
     private String name;
     private Set<StationsOnRoutesEntity> stationsOnRoutesEntities = new HashSet<>();
     private Set<TrainEntity> trains = new HashSet<>();
@@ -18,12 +21,12 @@ public class RouteEntity implements Serializable{
 
     }
 
-    public RouteEntity(Integer id, String name){
+    public RouteEntity(Long id, String name){
         this.id = id;
         this.name = name;
     }
 
-    public RouteEntity(Integer id, String name, Set<StationsOnRoutesEntity> stationsOnRoutesEntities){
+    public RouteEntity(Long id, String name, Set<StationsOnRoutesEntity> stationsOnRoutesEntities){
         this.id = id;
         this.name = name;
         this.stationsOnRoutesEntities = stationsOnRoutesEntities;
@@ -32,16 +35,16 @@ public class RouteEntity implements Serializable{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "ID")
-    private Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
     @Column(name = "Name")
-    private String getName() {
+    public String getName() {
         return name;
     }
 

@@ -1,4 +1,7 @@
-package alegerd.trains.entities;
+package alegerd.trains.entities.station;
+
+import alegerd.trains.entities.stationsOnRoutes.StationsOnRoutesEntity;
+import alegerd.trains.entities.timetable.TimetableEntity;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -8,7 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Station")
 public class StationEntity {
-    private Integer id;
+    private Long id;
     private String name;
     private Set<StationsOnRoutesEntity> stationsOnRoutesEntities = new HashSet<>(0);
     private Set<TimetableEntity> timetable = new HashSet<>(0);
@@ -17,12 +20,12 @@ public class StationEntity {
 
     }
 
-    public StationEntity(Integer id, String name){
+    public StationEntity(Long id, String name){
         this.id = id;
         this.name = name;
     }
 
-    public StationEntity(Integer id, String name, Set<StationsOnRoutesEntity> stationsOnRoutesEntities){
+    public StationEntity(Long id, String name, Set<StationsOnRoutesEntity> stationsOnRoutesEntities){
         this.stationsOnRoutesEntities = stationsOnRoutesEntities;
         this.id = id;
         this.name = name;
@@ -30,11 +33,11 @@ public class StationEntity {
 
     @Id
     @Column(name = "ID")
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

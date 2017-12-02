@@ -1,8 +1,9 @@
-package alegerd.trains.entities;
+package alegerd.trains.entities.timetable;
 
-import javax.persistence.Column;
+import alegerd.trains.entities.train.TrainEntity;
+import alegerd.trains.entities.station.StationEntity;
+
 import javax.persistence.Embeddable;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.io.Serializable;
 import java.util.Objects;

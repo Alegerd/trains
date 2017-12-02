@@ -1,6 +1,8 @@
 package alegerd.trains.service;
 
-import alegerd.trains.entities.RouteEntity;
+import alegerd.trains.entities.other.EntityToDto;
+import alegerd.trains.entities.route.RouteDto;
+import alegerd.trains.entities.route.RouteEntity;
 import alegerd.trains.repositories.RouteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +16,13 @@ public class RouteService {
     @Autowired
     private RouteRepository routeRepository;
 
-    public List<RouteEntity> getAllRoutes(){
-        List<RouteEntity> routes = new LinkedList<>();
-        routeRepository.findAll().forEach(routes::add);
+    public List<RouteDto> getAllRoutes(){
+        List<RouteDto> routes = new LinkedList<>();
+        routeRepository.findAll().forEach(route -> routes.add(EntityToDto.getDto(route)));
         return routes;
     }
 
-    public List<RouteEntity> getRouteById(Integer id){
-        List<RouteEntity> routes = new LinkedList<>();
-        routeRepository.findById(id).forEach(routes::add);
-        return routes;
+    public RouteDto getRouteById(Long id){
+        return EntityToDto.getDto(routeRepository.findRouteEntityById(id));
     }
 }

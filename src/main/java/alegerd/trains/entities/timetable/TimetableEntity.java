@@ -1,9 +1,10 @@
-package alegerd.trains.entities;
+package alegerd.trains.entities.timetable;
+
+import alegerd.trains.entities.train.TrainEntity;
+import alegerd.trains.entities.station.StationEntity;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Timetable")

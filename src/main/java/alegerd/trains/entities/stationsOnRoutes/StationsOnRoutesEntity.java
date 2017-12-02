@@ -1,8 +1,10 @@
-package alegerd.trains.entities;
+package alegerd.trains.entities.stationsOnRoutes;
+
+import alegerd.trains.entities.route.RouteEntity;
+import alegerd.trains.entities.station.StationEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Stations_on_Routes")

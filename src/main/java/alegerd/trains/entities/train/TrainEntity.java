@@ -1,4 +1,7 @@
-package alegerd.trains.entities;
+package alegerd.trains.entities.train;
+
+import alegerd.trains.entities.route.RouteEntity;
+import alegerd.trains.entities.timetable.TimetableEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +14,7 @@ import java.util.Set;
 public class TrainEntity implements Serializable{
 
 
-    private Integer number;
+    private Long number;
     private RouteEntity route;
     private Set<TimetableEntity> timetable = new HashSet<>(0);
 
@@ -19,22 +22,22 @@ public class TrainEntity implements Serializable{
 
     }
 
-    public TrainEntity(Integer number, Set<TimetableEntity> timetable) {
+    public TrainEntity(Long number, Set<TimetableEntity> timetable) {
         this.number = number;
         this.timetable = timetable;
     }
 
-    public TrainEntity(Integer number){
+    public TrainEntity(Long number){
         this.number = number;
     }
 
     @Id
     @Column(name = "Number")
-    public Integer getNumber() {
+    public Long getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(Long number) {
         this.number = number;
     }
 
