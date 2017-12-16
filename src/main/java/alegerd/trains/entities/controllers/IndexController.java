@@ -7,7 +7,7 @@ import alegerd.trains.entities.train.TrainDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -18,7 +18,7 @@ public class IndexController {
     @Autowired
     private MainService service;
 
-    @GetMapping(value = "/index")
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String getIndexPage(HttpServletRequest request, Model model){
         String name = request.getParameter("name");
         if(name == null){
@@ -28,19 +28,37 @@ public class IndexController {
         return "hello";
     }
 
-    @GetMapping(value = "/trains/all")
-    List<TrainDto> getAllTrains(){
+    @RequestMapping(value = "/trains/all", method = RequestMethod.GET)
+    public String getAllTrains(Model model){
         List<TrainDto> trainDtos = service.getAllTrains();
-        return trainDtos;
+        model.addAttribute("trainList", trainDtos);
+        return "trains :: trainsTable";
     }
 
-    @GetMapping(value = "/stations/all")
-    List<StationDto> getAllStations(){
+    @RequestMapping(value = "/stations/all", method = RequestMethod.GET)
+    public String getAllStations(Model model){
         List<StationDto> stationDtos = service.getAllStations();
-        return stationDtos;
+        model.addAttribute("stationList", stationDtos);
+        return "trains :: stationsTable";
     }
 
-    @GetMapping(value = "/route/all")
+    @GetMapping("/stationForm")
+    public String getStationForm(Model model){
+        model.addAttribute("station", new StationDto());
+        return "trains :: stationForm";
+    }
+
+    @RequestMapping( value = "/station/new", method = RequestMethod.POST)
+    public String addNewStation(@ModelAttribute StationDto station){
+        try {
+            service.addNewStation(station);
+        }catch (Exception e){
+
+        }
+        return "redirect:/index";
+    }
+
+    @RequestMapping(value = "/route/all", method = RequestMethod.GET)
     List<RouteDto> getAllRoutes(){
         List<RouteDto> routeDtos = service.getAllRoutes();
         return routeDtos;

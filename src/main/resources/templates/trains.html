@@ -1,0 +1,46 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link href="../static/css/materialize.css" th:href="@{/css/materialize.css}" rel="stylesheet" />
+    <title>Trains</title>
+</head>
+<body>
+<table border="1" th:fragment="trainsTable" class="striped">
+    <thead>
+        <tr>
+            <td>Номер поезда</td>
+            <td>Маршрут</td>
+            <td>Станция</td>
+        </tr>
+    </thead>
+    <tr th:each="train :${trainList}">
+        <td th:text="${train.getNumber()}">Номер поезда</td>
+        <td th:text="${train.getRouteName()}">Маршрут</td>
+        <td th:text="${train.getStationName()}">Станция</td>
+    </tr>
+</table>
+
+<table border="1" th:fragment="stationsTable" class="striped">
+    <thead>
+    <tr>
+        <td>Станция</td>
+        <td>Маршрут</td>
+    </tr>
+    </thead>
+    <tr th:each="station :${stationList}">
+        <td th:text="${station.getName()}">Название</td>
+        <td th:text="${station.getRouteName()}">Маршрут</td>
+    </tr>
+</table>
+
+<form action="#" th:action="@{/station/new}" th:object="${station}" method="post" th:fragment="stationForm">
+    <p>Name: <input type="text" th:field="*{name}" /></p>
+    <p>Route: <input type="text" th:field="*{routeName}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+
+
+</body>
+</html>

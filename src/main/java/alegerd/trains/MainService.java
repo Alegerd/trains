@@ -55,7 +55,17 @@ public class MainService {
 
     @Transactional
     public void addNewStation(StationDto stationDto) throws Exception{
+        if(isStationExist(stationDto)) throw new Exception("station with this name already exists");
         stationRepo.save(toEntity(stationDto));
+    }
+
+    private boolean isStationExist(StationDto stationDto){
+        boolean result = false;
+        for (StationsEntity station :
+                stationRepo.findAll()) {
+            if(station.getName().equals(stationDto.getName())) result = true;
+        }
+        return result;
     }
 
     public TrainsEntity toEntity(TrainDto trainDto) throws Exception{
@@ -85,7 +95,7 @@ public class MainService {
         StationsEntity se = new StationsEntity(stationDto.getName());
         se.setTrains(trains);
 
-        RoutesEntity route = routeRepo.findRoutesEntityByRouteId(stationDto.getRouteId());
+        RoutesEntity route = routeRepo.findRoutesEntityByName(stationDto.getRouteName());
         se.setRoute(route);
         return se;
     }
@@ -93,7 +103,7 @@ public class MainService {
     public TrainDto toDto(TrainsEntity trainsEntity){
         String station = trainsEntity.getStation().getName();
         String route = trainsEntity.getRoute().getName();
-        return new TrainDto(trainsEntity.getNumber(), station, route);
+        return new TrainDto(trainsEntity.getNumber(), route, station);
     }
 
     public StationDto toDto(StationsEntity stationsEntity){
@@ -103,7 +113,7 @@ public class MainService {
                 trainsEntities) {
             trainDtos.add(toDto(train));
         }
-        return new StationDto(stationsEntity.getName(), trainDtos);
+        return new StationDto(stationsEntity.getName(), trainDtos, stationsEntity.getRoute().getName());
     }
 
     public RouteDto toDto(RoutesEntity routesEntity){

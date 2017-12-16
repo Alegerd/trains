@@ -1,7 +1,8 @@
-h1{
-    color:#0000FF;
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
-
-h2{
-    color:#FF0000;
+main {
+    flex: 1 0 auto;
 }

@@ -8,17 +8,21 @@ import java.util.List;
 public class StationDto {
     String name;
     List<TrainDto> trains = new ArrayList<>();
-    Long routeId;
+    String routeName;
 
-    public StationDto(String name, List<TrainDto> trains){
-        this.name = name;
-        this.trains = trains;
+    public StationDto(){
+
     }
 
-    public StationDto(String name, Long routeId){
+    public StationDto(String name, List<TrainDto> trains, String routeName){
         this.name = name;
         this.trains = trains;
-        this.routeId = routeId;
+        this.routeName = routeName;
+    }
+
+    public StationDto(String name, String routeName){
+        this.name = name;
+        this.routeName = routeName;
     }
 
     @Override
@@ -34,7 +38,19 @@ public class StationDto {
         return trains;
     }
 
-    public Long getRouteId() {
-        return routeId;
+    public String getRouteName() {
+        return routeName;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setTrains(List<TrainDto> trains) {
+        this.trains = trains;
+    }
+
+    public void setRouteName(String routeName) {
+        this.routeName = routeName;
     }
 }
