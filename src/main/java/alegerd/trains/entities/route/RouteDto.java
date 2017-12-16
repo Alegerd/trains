@@ -1,27 +1,35 @@
 package alegerd.trains.entities.route;
 
+import alegerd.trains.entities.station.StationDto;
+import alegerd.trains.entities.train.TrainDto;
+
+import java.util.List;
+
 public class RouteDto {
-    Long id;
-    String name;
+    String routeName;
+    List<TrainDto> trains;
+    List<StationDto> stations;
 
-    public RouteDto(Long id, String name) {
-        this.id = id;
-        this.name = name;
+    public RouteDto(String routeName, List<TrainDto> trains, List<StationDto> stations){
+        this.routeName = routeName;
+        this.stations = stations;
+        this.trains = trains;
     }
 
-    public Long getId() {
-        return id;
-    }
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Route: Name " + routeName + "\n " +
+                "      Trains: \n");
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+        for (TrainDto train : trains) {
+             sb.append(train.toString() + "\n");
+        }
+        sb.append("       Stations: \n");
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        for (StationDto station : stations) {
+            sb.append(station.toString() + "\n");
+        }
+        return sb.toString();
     }
 }

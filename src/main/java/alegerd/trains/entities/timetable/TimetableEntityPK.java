@@ -1,39 +1,32 @@
 package alegerd.trains.entities.timetable;
 
-import alegerd.trains.entities.train.TrainEntity;
-import alegerd.trains.entities.station.StationEntity;
-
-import javax.persistence.Embeddable;
-import javax.persistence.ManyToOne;
+import javax.persistence.Column;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
 public class TimetableEntityPK implements Serializable {
+    private Long stationId;
+    private Long trainId;
 
-    protected StationEntity station;
-
-    protected TrainEntity train;
-
-    public TimetableEntityPK() {
+    @Column(name = "Station_id")
+    @Id
+    public Long getStationId() {
+        return stationId;
     }
 
-    @ManyToOne
-    public StationEntity getStation() {
-        return station;
+    public void setStationId(Long stationId) {
+        this.stationId = stationId;
     }
 
-    public void setStation(StationEntity station) {
-        this.station = station;
+    @Column(name = "Train_id")
+    @Id
+    public Long getTrainId() {
+        return trainId;
     }
 
-    @ManyToOne
-    public TrainEntity getTrain() {
-        return train;
-    }
-
-    public void setTrain(TrainEntity train) {
-        this.train = train;
+    public void setTrainId(Long trainId) {
+        this.trainId = trainId;
     }
 
     @Override
@@ -41,13 +34,13 @@ public class TimetableEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TimetableEntityPK that = (TimetableEntityPK) o;
-        return station == that.station &&
-                train == that.train;
+        return stationId == that.stationId &&
+                trainId == that.trainId;
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(station, train);
+        return Objects.hash(stationId, trainId);
     }
 }

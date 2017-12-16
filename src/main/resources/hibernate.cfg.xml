@@ -4,14 +4,14 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost:3306/Trains</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/RouteDataBase</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <mapping class="alegerd.trains.entities.route.RouteEntity"/>
-    <mapping class="alegerd.trains.entities.station.StationEntity"/>
-    <mapping class="alegerd.trains.entities.stationsOnRoutes.StationsOnRoutesEntity"/>
+      <mapping class="alegerd.trains.entities.route.RoutesEntity"/>
+    <mapping class="alegerd.trains.entities.station.StationsEntity"/>
     <mapping class="alegerd.trains.entities.timetable.TimetableEntity"/>
-    <mapping class="alegerd.trains.entities.train.TrainEntity"/>
-    <!-- <property name="connection.username"/> -->
+    <mapping class="alegerd.trains.entities.train.TrainsEntity"/>
+      <mapping class="alegerd.trains.entities.station.StationsEntity"/>
+      <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
     <!-- DB schema will be updated if needed -->

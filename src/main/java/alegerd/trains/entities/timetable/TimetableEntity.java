@@ -1,67 +1,55 @@
 package alegerd.trains.entities.timetable;
 
-import alegerd.trains.entities.train.TrainEntity;
-import alegerd.trains.entities.station.StationEntity;
-
 import javax.persistence.*;
-import java.util.Date;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 @Entity
 @Table(name = "Timetable")
-@AssociationOverrides({
-        @AssociationOverride(name = "pk.train",
-                joinColumns = @JoinColumn(name = "Train")),
-        @AssociationOverride(name = "pk.station",
-                joinColumns = @JoinColumn(name = "Station")) })
+@IdClass(TimetableEntityPK.class)
 public class TimetableEntity {
-    private Date arrivalTime;
-    private Date departureTime;
-    private TimetableEntityPK timePK = new TimetableEntityPK();
+    private Long stationId;
+    private Long trainId;
+    private Timestamp arrivalTime;
+    private Timestamp departureTime;
 
-    @EmbeddedId
-    public TimetableEntityPK getPk() {
-        return timePK;
+    @Id
+    @Column(name = "Station_id")
+    public Long getStationId() {
+        return stationId;
     }
 
-    public void setPk(TimetableEntityPK timePK){
-        this.timePK = timePK;
+    public void setStationId(Long stationId) {
+        this.stationId = stationId;
     }
 
-    @Transient
-    public StationEntity getStation(){
-        return getPk().getStation();
+    @Id
+    @Column(name = "Train_id")
+    public Long getTrainId() {
+        return trainId;
     }
 
-    public void setStation(StationEntity station){
-        getPk().setStation(station);
+    public void setTrainId(Long trainId) {
+        this.trainId = trainId;
     }
 
-    @Transient
-    public TrainEntity getTrain(){
-        return getPk().getTrain();
-    }
-
-    public void setTrain(TrainEntity train){
-        getPk().setTrain(train);
-    }
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "Arrival_time")
-    public Date getArrivalTime() {
+    @Basic
+    @Column(name = "ArrivalTime")
+    public Timestamp getArrivalTime() {
         return arrivalTime;
     }
 
-    public void setArrivalTime(Date arrivalTime) {
+    public void setArrivalTime(Timestamp arrivalTime) {
         this.arrivalTime = arrivalTime;
     }
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "Departure_time")
-    public Date getDepartureTime() {
+    @Basic
+    @Column(name = "DepartureTime")
+    public Timestamp getDepartureTime() {
         return departureTime;
     }
 
-    public void setDepartureTime(Date departureTime) {
+    public void setDepartureTime(Timestamp departureTime) {
         this.departureTime = departureTime;
     }
 
@@ -70,15 +58,15 @@ public class TimetableEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TimetableEntity that = (TimetableEntity) o;
-        if (getPk() != null ? !getPk().equals(that.getPk())
-                : that.getPk() != null)
-            return false;
-
-        return true;
+        return stationId == that.stationId &&
+                trainId == that.trainId &&
+                Objects.equals(arrivalTime, that.arrivalTime) &&
+                Objects.equals(departureTime, that.departureTime);
     }
 
     @Override
     public int hashCode() {
-        return (getPk() != null ? getPk().hashCode() : 0);
+
+        return Objects.hash(stationId, trainId, arrivalTime, departureTime);
     }
 }
